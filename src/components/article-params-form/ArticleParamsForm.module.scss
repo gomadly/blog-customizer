@@ -5,11 +5,13 @@
 	z-index: 100;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 50px;
 	box-sizing: border-box;
 	width: 616px;
 	height: 100vh;
-	padding: 24px;
+	padding: 30px;
+	padding-top: 54px;
+	padding-bottom: 54px;
 	overflow-y: auto;
 	background: #ffffff;
 	border-right: 1px solid #000000;
@@ -21,8 +23,29 @@
 	transform: translateX(0);
 }
 
+.formTitle {
+	color: #000000;
+	font-weight: 800;
+	font-size: 31px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.radioBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.radioTitle {
+	color: #000000;
+	font-weight: 700;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
 .bottomContainer {
 	display: flex;
-	gap: 12px;
+	justify-content: space-between;
+	gap: 16px;
 	margin-top: auto;
 }

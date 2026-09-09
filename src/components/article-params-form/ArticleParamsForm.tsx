@@ -20,26 +20,29 @@ import styles from './ArticleParamsForm.module.scss';
 
 export const ArticleParamsForm = ({
 	setArticleState,
-	isPanelOpen,
-	setIsPanelOpen,
 }: {
 	setArticleState: (state: ArticleStateType) => void;
-	isPanelOpen: boolean;
-	setIsPanelOpen: (isOpen: boolean) => void;
 }) => {
+	const [isPanelOpen, setIsPanelOpen] = useState(false);
+
 	const [fontFamily, setFontFamily] = useState<OptionType>(
-		fontFamilyOptions[0]
+		defaultArticleState.fontFamilyOption
 	);
-	const [fontSize, setFontSize] = useState<OptionType>(fontSizeOptions[0]);
-	const [fontColor, setFontColor] = useState<OptionType>(fontColors[0]);
-	const [bgColor, setBgColor] = useState<OptionType>(backgroundColors[0]);
+	const [fontSize, setFontSize] = useState<OptionType>(
+		defaultArticleState.fontSizeOption
+	);
+	const [fontColor, setFontColor] = useState<OptionType>(
+		defaultArticleState.fontColor
+	);
+	const [bgColor, setBgColor] = useState<OptionType>(
+		defaultArticleState.backgroundColor
+	);
 	const [contentWidth, setContentWidth] = useState<OptionType>(
-		contentWidthArr[0]
+		defaultArticleState.contentWidth
 	);
 
 	const panelRef = useRef<HTMLDivElement>(null);
 
-	// Закрытие панели по клику вне её области
 	useEffect(() => {
 		if (!isPanelOpen) return;
 
@@ -59,7 +62,7 @@ export const ArticleParamsForm = ({
 		return () => {
 			window.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [isPanelOpen, setIsPanelOpen]);
+	}, [isPanelOpen]);
 
 	const handleApply = () => {
 		setArticleState({
@@ -72,11 +75,12 @@ export const ArticleParamsForm = ({
 	};
 
 	const handleReset = () => {
-		setFontFamily(fontFamilyOptions[0]);
-		setFontSize(fontSizeOptions[0]);
-		setFontColor(fontColors[0]);
-		setBgColor(backgroundColors[0]);
-		setContentWidth(contentWidthArr[0]);
+		setFontFamily(defaultArticleState.fontFamilyOption);
+		setFontSize(defaultArticleState.fontSizeOption);
+		setFontColor(defaultArticleState.fontColor);
+		setBgColor(defaultArticleState.backgroundColor);
+		setContentWidth(defaultArticleState.contentWidth);
+
 		setArticleState(defaultArticleState);
 	};
 
@@ -92,53 +96,57 @@ export const ArticleParamsForm = ({
 				className={clsx(styles.container, {
 					[styles.container_open]: isPanelOpen,
 				})}>
+				<h2 className={styles.formTitle}>ЗАДАЙТЕ ПАРАМЕТРЫ</h2>
+
 				<Select
-					title='Шрифт'
+					title='ШРИФТ'
 					options={fontFamilyOptions}
 					selected={fontFamily}
 					onChange={setFontFamily}
 				/>
 
-				<RadioGroup
-					title='Размер шрифта'
-					name='fontSize'
-					options={fontSizeOptions}
-					selected={fontSize}
-					onChange={setFontSize}
-				/>
+				<div className={styles.radioBlock}>
+					<RadioGroup
+						name='fontSize'
+						title='Размер шрифта'
+						options={fontSizeOptions}
+						selected={fontSize}
+						onChange={setFontSize}
+					/>
+				</div>
 
 				<Select
-					title='Цвет шрифта'
+					title='ЦВЕТ ШРИФТА'
 					options={fontColors}
 					selected={fontColor}
 					onChange={setFontColor}
 				/>
 
+				<Separator />
+
 				<Select
-					title='Цвет фона'
+					title='ЦВЕТ ФОНА'
 					options={backgroundColors}
 					selected={bgColor}
 					onChange={setBgColor}
 				/>
 
 				<Select
-					title='Ширина контента'
+					title='ШИРИНА КОНТЕНТА'
 					options={contentWidthArr}
 					selected={contentWidth}
 					onChange={setContentWidth}
 				/>
 
-				<Separator />
-
 				<div className={styles.bottomContainer}>
 					<Button
-						title='Сбросить'
+						title='СБРОСИТЬ'
 						type='clear'
 						htmlType='reset'
 						onClick={handleReset}
 					/>
 					<Button
-						title='Применить'
+						title='ПРИМЕНИТЬ'
 						type='apply'
 						htmlType='submit'
 						onClick={handleApply}

@@ -9,7 +9,6 @@ import styles from './app.module.scss';
 
 export const App = () => {
 	const [articleState, setArticleState] = useState(defaultArticleState);
-	const [isPanelOpen, setIsPanelOpen] = useState(false);
 
 	return (
 		<main
@@ -23,11 +22,7 @@ export const App = () => {
 					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm
-				setArticleState={setArticleState}
-				isPanelOpen={isPanelOpen}
-				setIsPanelOpen={setIsPanelOpen}
-			/>
+			<ArticleParamsForm setArticleState={setArticleState} />
 			<Article />
 		</main>
 	);
